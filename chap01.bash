@@ -4,9 +4,12 @@
 # Data Science at the Command Line, 2016 by J. Janssens
 #
 ##
+set -o verbose
+set -o errexit
 
-chap=book/ch01;pushd $chap
+chap=book/ch01;
 if [ ! -d $chap/data2 ];then mkdir $chap/data2;fi
+pushd $chap
 interactive=0
 
 #--------------------------------------------------
@@ -37,8 +40,10 @@ cat data/results/1/*/2/*/stdout |
           .response.docs[] | 
           {date: .pub_date, type: .document_type,
           title: .headline.main }
-          ' |
-    json2csv -p -k date,type,title > data2/fashion.csv
+          ' | head
+
+#    json2csv -p -k date,type,title > data2/fashion.csv
+exit
 #--------------------------------------------------
 wc -l data2/fashion.csv
 #--------------------------------------------------
